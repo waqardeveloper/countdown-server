@@ -1,0 +1,99 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery Countdown Clock Plugin</title>
+	<link type="text/css" href="demo.css" rel="stylesheet">
+	<link type="text/css" href="https://rawgit.com/epiksel/countdown/master/jquery.countdown.css" rel="stylesheet">
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script type="text/javascript" src="countdown.js"></script>
+	<script src="https://cdn.socket.io/3.1.3/socket.io.min.js" integrity="sha384-cPwlPLvBTa3sKAgddT6krw0cJat7egBga3DJepJyrLl4Q9/5WLra3rrnMcyTyOnh" crossorigin="anonymous"></script>
+
+</head>
+<body>
+	<ul id="example">
+		<li><span class="days">00</span><p class="days_text">Days</p></li>
+		<li class="seperator">:</li>
+		<li><span class="hours">00</span><p class="hours_text">Hours</p></li>
+		<li class="seperator">:</li>
+		<li><span class="minutes">00</span><p class="minutes_text">Minutes</p></li>
+		<li class="seperator">:</li>
+		<li><span class="seconds">00</span><p class="seconds_text">Seconds</p></li>
+	</ul>
+
+	<!-- <iframe src="http://free.timeanddate.com/countdown/i7wg5z3i/cf106/cm0/cu4/ct0/cs0/ca0/cr0/ss0/cac000/cpc000/pcfff/tc833891/fs100/szw320/szh135/tatTime%20left%20to%20Event%20in/tac000/tptTime%20since%20Event%20started%20in/tpc000/mac000/mpc000/iso2021-08-28T00:00:00" allowtransparency="true" frameborder="0" width="320" height="135"></iframe> -->
+
+	<script  type="text/javascript">
+	const socket = io("http://ed559c37cda3.ngrok.io");
+
+// 	function startTimer(duration, display) {
+//     var timer = duration, minutes, seconds;
+//     setInterval(function () {
+//         minutes = parseInt(timer / 60, 10)
+//         seconds = parseInt(timer % 60, 10);
+
+//         minutes = minutes < 10 ? "0" + minutes : minutes;
+//         seconds = seconds < 10 ? "0" + seconds : seconds;
+
+// 		$('.minutes_text').text(minutes);
+// 		$('.seconds_text').text(seconds);
+
+//        // display.text(minutes + ":" + seconds);
+
+//         if (--timer < 0) {
+//             timer = duration;
+//         }
+//     }, 1000);
+// }
+
+// var fiveMinutes = 60 * 50,
+//         display = $('#example');
+//         startTimer(fiveMinutes, display);
+
+// $('#example').countdown({
+// 			date: '07/27/2023 17:00:00', // TODO Date format: 07/27/2017 17:00:00
+// 			currentDate:new Date(),
+// 			offset: +2, // TODO Your Timezone Offset
+// 			day: 'Day',
+// 			days: 'Days',
+// 			hideOnComplete: true
+// 		}, function(container) {
+// 			alert('Done!');
+// 		});
+
+	socket.on("msg", (msg) =>{
+
+		console.log(msg);
+
+
+		$('#example').countdown({
+			date: '07/27/2023 17:00:00', // TODO Date format: 07/27/2017 17:00:00
+			currentDate:new Date(),
+			offset: +2, // TODO Your Timezone Offset
+			day: 'Day',
+			days: 'Days',
+			hideOnComplete: true
+		}, function(container) {
+			alert('Done!');
+		});
+
+
+
+		//console.log(msg);
+	
+
+
+		// $('#example').countdown({
+		// 	date: msg, // TODO Date format: 07/27/2017 17:00:00
+		// 	offset: +2, // TODO Your Timezone Offset
+		// 	day: 'Day',
+		// 	days: 'Days',
+		// 	hideOnComplete: true
+		// }, function(container) {
+		// 	alert('Done!');
+		// });
+	});
+	</script>
+</body>
+</html>
